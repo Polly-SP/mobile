@@ -5,17 +5,16 @@ import * as MediaLibrary from 'expo-media-library';
 export const ReviewScreen = ({navigation}) => {
 
   const image = navigation.state.params.image;
-// go back - вернуться обратно (навигация)
+
   const goBack = () => {
       navigation.navigate('Intro')
   };
-// обращаемся к MediaLibrary, и она сохраняет фото в хранилище 
+ 
   const saveToLib = async () => {
       await MediaLibrary.createAssetAsync(image);
       Alert.alert('Фото успешно добавлено в фотопленку!')
   };
-// возвращаем 2 кнопки: сохранить в галерею и вернуть обратно
-// в теги {{uri: image}} картинка, которую мы передали через параметры с прошлого компонента
+
   return (
       <View style={styles.container}>
           <Text style={styles.reviewText}>Предпросмотр</Text>
