@@ -5,8 +5,7 @@ import * as Permission from 'expo-permissions'
 
 export const IntroScreen = ({navigation}) => {
 
-    // это коробочная функция, которая бкдут спрашивать права на использование (даешь доступ к камере и галереи)
-    //доступ не дали, значит "нет прав"
+    
     async function askForPermission() {
         const {status} = await Permission.askAsync(
             Permission.CAMERA,
@@ -18,22 +17,19 @@ export const IntroScreen = ({navigation}) => {
         }
         return true
     }
-// в первую очередь спрашиваем есть ли у нас доступы, затем задаем константу Image
+
     const takePhotoHandler = async () => {
         const hasPermissions = await askForPermission();
         if (!hasPermissions) {
             return
         }
-// в которой мы берем коробочную ф реакта и запускаем камеру 
-// quality- нарезка качества от первоначального 
-// allowsEditing- доступ на редактирование 
-// aspect- соотношение сторон
+
         const img = await ImagePicker.launchCameraAsync({
             quality: 0.7,
             allowsEditing: true,
             aspect: [3, 4]
         });
-// передаем ревью компонент с картинкой с URL (кнопочка, что фотографирует, вызывает функцию TakePhoto)
+
         navigation.navigate('Review', {image: img.uri})
     };
 
